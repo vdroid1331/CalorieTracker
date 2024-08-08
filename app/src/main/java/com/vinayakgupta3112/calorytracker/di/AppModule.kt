@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import com.vinayakgupta3112.core.data.preferences.DefaultPreferences
 import com.vinayakgupta3112.core.domain.preferences.Preferences
+import com.vinayakgupta3112.core.domain.use_case.FilterOutDigits
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -32,5 +33,11 @@ object AppModule {
         return DefaultPreferences(
             sharedPreferences
         )
+    }
+
+    @Provides
+    @Singleton
+    fun providesFilterOutDigitsUseCase(): FilterOutDigits {
+        return FilterOutDigits()
     }
 }
