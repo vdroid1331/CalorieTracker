@@ -1,4 +1,4 @@
-package com.vinayakgupta3112.calorytracker.ui.theme
+package com.vinayakgupta3112.core_ui
 
 import androidx.compose.ui.graphics.Color
 

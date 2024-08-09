@@ -52,7 +52,7 @@ class TrackerRepositoryImpl(
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    override suspend fun getFoodsForDate(localDate: LocalDate): Flow<List<TrackedFood>> {
+    override fun getFoodsForDate(localDate: LocalDate): Flow<List<TrackedFood>> {
         return dao.getFoodsForDate(
             day = localDate.dayOfMonth,
             month = localDate.monthValue,
