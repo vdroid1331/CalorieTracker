@@ -64,6 +64,19 @@ class DefaultPreferences(
             .apply()
     }
 
+    override fun saveShouldShowOnboarding(shouldShow: Boolean) {
+        sharedPref.edit()
+            .putBoolean(Preferences.KEY_SHOULD_SHOW_ONBOARDING, shouldShow)
+            .apply()
+    }
+
+    override fun loadShouldShowOnboarding(): Boolean {
+        return sharedPref.getBoolean(
+            Preferences.KEY_SHOULD_SHOW_ONBOARDING,
+            true
+        )
+    }
+
     override fun loadUserInfo(): UserInfo {
         val age = sharedPref.getInt(Preferences.KEY_AGE, -1)
         val height = sharedPref.getInt(Preferences.KEY_HEIGHT, -1)
