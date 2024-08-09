@@ -17,6 +17,7 @@ import androidx.navigation.navArgument
 import coil.annotation.ExperimentalCoilApi
 import com.vinayakgupta3112.calorytracker.navigation.navigate
 import com.vinayakgupta3112.calorytracker.ui.theme.CaloryTrackerTheme
+import com.vinayakgupta3112.core.domain.preferences.Preferences
 import com.vinayakgupta3112.core.navigation.Route
 import com.vinayakgupta3112.onboarding_presentation.activity.ActivityScreen
 import com.vinayakgupta3112.onboarding_presentation.age.AgeScreen
@@ -29,15 +30,21 @@ import com.vinayakgupta3112.onboarding_presentation.welcome.WelcomeScreen
 import com.vinayakgupta3112.tracker_presentation.search.SearchScreen
 import com.vinayakgupta3112.tracker_presentation.tracker_overview.TrackerOverviewScreen
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @ExperimentalComposeUiApi
 @ExperimentalCoilApi
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var preferences: Preferences
+
     @OptIn(ExperimentalComposeUiApi::class)
     @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val shouldShowOnboarding = preferences.loadShouldShowOnboarding()
         setContent {
             CaloryTrackerTheme {
                 val navController = rememberNavController()
@@ -46,7 +53,12 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     scaffoldState = scaffoldState
                 ) {
-                    NavHost(navController = navController, startDestination = Route.WELCOME) {
+                    NavHost(
+                        navController = navController,
+                        startDestination = if(shouldShowOnboarding) {
+                            Route.WELCOME
+                        } else Route.TRACKER_OVERVIEW
+                    ) {
                         composable(Route.WELCOME) {
                             WelcomeScreen(onNavigate = navController::navigate)
                         }
