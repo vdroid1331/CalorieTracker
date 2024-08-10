@@ -11,11 +11,9 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import com.vinayakgupta3112.core.domain.preferences.Preferences
-import com.vinayakgupta3112.core.domain.use_case.FilterOutDigits
 import com.vinayakgupta3112.core.util.UiEvent
 import com.vinayakgupta3112.core.util.UiText
 import com.vinayakgupta3112.core.R
-import com.vinayakgupta3112.core.navigation.Route
 
 
 @HiltViewModel
@@ -46,7 +44,7 @@ class WeightViewModel @Inject constructor(
                 return@launch
             }
             preferences.saveWeight(weightNumber)
-            _uiEvent.send(UiEvent.Navigate(Route.ACTIVITY ))
+            _uiEvent.send(UiEvent.Success)
         }
     }
 }
